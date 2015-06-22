@@ -1,0 +1,19 @@
+{
+  "name": "angular_crud",
+  "main": "index.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/mmmaaak/angular_crud",
+  "description": "Angular CRUD",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "react": "~0.13.3"
+  }
+}
