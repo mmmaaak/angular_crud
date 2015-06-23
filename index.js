@@ -8,10 +8,10 @@ app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
 
 var data = {
-  headers: [
+  fields: [
     {
       title: 'id',
-      valueType: 'number'
+      valueType: 'pkey'
     },
     {
       title: 'name',
@@ -50,7 +50,19 @@ app.get('/', function(req, res) {
   res.render('index');
 });
   
-app.post('/api/', function (req, res) {
+app.post('/api/create/', function (req, res) {
+  res.send(data);
+});
+
+app.post('/api/read/', function (req, res) {
+  res.send(data);
+});
+
+app.post('/api/update/', function (req, res) {
+  res.send(data);
+});
+
+app.post('/api/delete/', function (req, res) {
   res.send(data);
 });
 
