@@ -15,34 +15,55 @@ var CRUDAddComponent = React.createClass({
 			fields: this.props.fields
 		});
 	},
+    
+    renderFields: function(fields) {
+        var self = this;
+        return fields.map(function(e, i) {
+             switch (e.valueType) {
+                 case 'string': return self.renderStringField(e, i);
+                 case 'number': return self.renderNumberField(e, i);
+                 case 'select': return self.renderSelectField(e, i);
+                 default: return null;
+             }
+        });    
+    },
+    
+    renderStringField: function(e, i) {
+        return (
+            <div className="form-group" key={i}>
+                <label>{e.title}</label>
+                <p><input className="form-control" type="text" name={e.title}/></p>
+            </div>
+        );
+    },
+    
+    renderNumberField: function(e, i) {
+        return (
+            <div className="form-group" key={i}>
+                <label>{e.title}</label>
+                <p><input className="form-control" type="number" name={e.title}/></p>
+            </div>
+        );
+    },
+    
+    renderSelectField: function(e, i) {
+        var options = e.options.map(function(o, o_i) {
+            return (<option key={o_i} value={o}>{o}</option>);
+        });
+        return (
+            <div className="form-group" key={i}>
+                <label>{e.title}</label>
+                <select name={e.title}>{options}</select>
+            </div>
+        );
+    },
 
 	render: function() {
-		var f = this.state.fields.map(function(e, i) { 
-            var field = null;
-            if(e.valueType==='string') field = (<p><input className="form-control" type="text" name={e.title}/></p>);
-            else if (e.valueType==='number') field = (<p><input className="form-control" type="number" name={e.title}/></p>);
-            else if (e.valueType==='select') {
-                var options = e.options.map(function(o, o_i) {
-                    return (<option key={o_i} value={o}>{o}</option>);
-                });
-                field = (<select name={e.title}>{options}</select>);
-            }
-            
-            if (field!==null) {
-            return (
-                <div className="form-group" key={i}>
-                    <label>{e.title}</label>
-                    {field}
-                </div>
-            );
-            } else return null;
-        });
-
 		return (
 			<div className="row">
                 <h2>Create Form</h2>
 				<form className="form">
-					{f}
+					{this.renderFields(this.state.fields)}
                     <p><input type="submit" className="btn btn-primary" value="Create" /></p>
 				</form>
 			</div>
