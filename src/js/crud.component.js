@@ -44,7 +44,7 @@ var CRUDUpdateComponent = React.createClass({
         return (
             <div className="form-group" key={i}>
                 <label>{e.title}</label>
-                <select name={e.title}>{options}</select>
+                <select className="form-control" name={e.title}>{options}</select>
             </div>
         );
     },
@@ -67,11 +67,13 @@ var CRUDUpdateComponent = React.createClass({
     render: function() {
         return (
 			<div className="row">
-                <h2>Update Form</h2>
-				<form className="form">
-					{this.renderFields(this.state.fields, this.state.row)}
-                    <p><input type="submit" className="btn btn-primary" value="Create" /></p>
-				</form>
+                <div className="col-md-8 col-md-offset-2">
+                    <h2>Update Form</h2>
+                    <form className="form">
+                        {this.renderFields(this.state.fields, this.state.row)}
+                        <p><input type="submit" className="btn btn-primary" value="Update" /></p>
+                    </form>
+                </div>
 			</div>
 		);
     }
@@ -132,7 +134,7 @@ var CRUDCreateComponent = React.createClass({
         return (
             <div className="form-group" key={i}>
                 <label>{e.title}</label>
-                <select name={e.title}>{options}</select>
+                <select className="form-control" name={e.title}>{options}</select>
             </div>
         );
     },
@@ -140,11 +142,13 @@ var CRUDCreateComponent = React.createClass({
 	render: function() {
 		return (
 			<div className="row">
-                <h2>Create Form</h2>
-				<form className="form">
-					{this.renderFields(this.state.fields)}
-                    <p><input type="submit" className="btn btn-primary" value="Create" /></p>
-				</form>
+                <div className="col-md-8 col-md-offset-2">
+                    <h2>Create Form</h2>
+                    <form className="form">
+                        {this.renderFields(this.state.fields)}
+                        <p><input type="submit" className="btn btn-primary" value="Create" /></p>
+                    </form>
+                </div>
 			</div>
 		);
 	}
@@ -219,19 +223,27 @@ var CRUDComponent = React.createClass({
     
 	render: function() {
 		return (
-			<div>
-				<table className="table table-bordered table-hover">
-					<thead>
-						<tr>
-							{this.renderTableHeaders(this.state.data.fields)}
-						</tr>
-					</thead>
-					<tbody>
-						{this.renderTableRows(this.state.data.fields, this.state.data.rows)}
-					</tbody>
-				</table>
-				<CRUDCreateComponent fields={this.state.data.fields} />
-			</div>
+            <div>
+                <div className="row">
+                    <div className="col-md-12">
+                        <table className="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    {this.renderTableHeaders(this.state.data.fields)}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.renderTableRows(this.state.data.fields, this.state.data.rows)}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12" id="create">
+                        <CRUDCreateComponent fields={this.state.data.fields} />
+                    </div>
+                </div>
+            </div>
 		);
 	}
 });
