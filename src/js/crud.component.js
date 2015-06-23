@@ -21,6 +21,12 @@ var CRUDAddComponent = React.createClass({
             var field = null;
             if(e.valueType==='string') field = (<p><input className="form-control" type="text" name={e.title}/></p>);
             else if (e.valueType==='number') field = (<p><input className="form-control" type="number" name={e.title}/></p>);
+            else if (e.valueType==='select') {
+                var options = e.options.map(function(o, o_i) {
+                    return (<option key={o_i} value={o}>{o}</option>);
+                });
+                field = (<select name={e.title}>{options}</select>);
+            }
             
             if (field!==null) {
             return (
@@ -49,7 +55,7 @@ var CRUDComponent = React.createClass({
 		return {
 			config: {
 				start: 0,
-				count: 0,
+				count: 10,
 				filters: []
 			},
 			data: {
