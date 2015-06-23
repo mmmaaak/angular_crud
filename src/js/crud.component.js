@@ -1,5 +1,84 @@
+var CRUDUpdateComponent = React.createClass({
+    getInitialState: function() {
+        return {
+            row: {},
+            fields: []
+        };
+    },
+    componentWillReceiveProps: function(props) {
+        this.setState({
+            row: props.row,
+            fields: props.fields
+        });
+    },
+    componentDidMount: function() {
+        this.setState({
+            row: this.props.row,
+            fields: this.props.fields
+        });
+    },
+    
+    renderStringField: function(e, i) {
+        return (
+            <div className="form-group" key={i}>
+                <label>{e.title}</label>
+                <p><input className="form-control" type="text" name={e.title} value={this.state.row[e.title]}/></p>
+            </div>
+        );
+    },
+    
+    renderNumberField: function(e, i) {
+        return (
+            <div className="form-group" key={i}>
+                <label>{e.title}</label>
+                <p><input className="form-control" type="number" name={e.title} value={this.state.row[e.title]}/></p>
+            </div>
+        );
+    },
+    
+    renderSelectField: function(e, i) {
+        var self = this;
+        var options = e.options.map(function(o, o_i) {
+            return (<option key={o_i} value={o} selected={o===self.state.row[e.title]}>{o}</option>);
+        });
+        return (
+            <div className="form-group" key={i}>
+                <label>{e.title}</label>
+                <select name={e.title}>{options}</select>
+            </div>
+        );
+    },
+                                    
+    updateSubmit: function(e, i) {
+    },
+    
+    renderFields: function(fields, row) {
+        var self = this;
+        return fields.map(function(e, i) {
+            switch (e.valueType) {
+                 case 'string': return self.renderStringField(e, i);
+                 case 'number': return self.renderNumberField(e, i);
+                 case 'select': return self.renderSelectField(e, i);
+                 default: return null;
+            }
+        });
+    },
+    
+    render: function() {
+        return (
+			<div className="row">
+                <h2>Update Form</h2>
+				<form className="form">
+					{this.renderFields(this.state.fields, this.state.row)}
+                    <p><input type="submit" className="btn btn-primary" value="Create" /></p>
+				</form>
+			</div>
+		);
+    }
+});
 
-var CRUDAddComponent = React.createClass({
+
+var CRUDCreateComponent = React.createClass({
 	getInitialState: function() {
 		return {
 			fields: []
@@ -99,6 +178,7 @@ var CRUDComponent = React.createClass({
     
     updateClick: function(row) {
         console.log("Update: ", row);
+        React.render(<CRUDUpdateComponent row={row} fields={this.state.data.fields}/>, document.getElementById('update'));
     },
     
     deleteClick: function(row) {
@@ -114,7 +194,7 @@ var CRUDComponent = React.createClass({
         return (
             <tr>
                 {fieldsHeaders}
-                <td>Actions</td>
+                <th>Actions</th>
             </tr>
         );
     },
@@ -150,7 +230,7 @@ var CRUDComponent = React.createClass({
 						{this.renderTableRows(this.state.data.fields, this.state.data.rows)}
 					</tbody>
 				</table>
-				<CRUDAddComponent fields={this.state.data.fields} />
+				<CRUDCreateComponent fields={this.state.data.fields} />
 			</div>
 		);
 	}
