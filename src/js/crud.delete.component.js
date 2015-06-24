@@ -22,7 +22,7 @@ var CRUDDeleteComponent = React.createClass({
     
     renderFields: function(row) {
         return $.map(row, function(e, i) {
-            return (<p>{i}: {e}</p>) 
+            return (<p key={i}>{i}: {e}</p>) 
         });  
     },
     

@@ -3,25 +3,19 @@ var CRUDTableComponent = React.createClass({
 		return {
 			config: {
 				start: 0,
-				count: 10,
+				count: 3,
 				filters: []
 			},
 			data: {
 				fields: [],
-				rows: []
+				rows: [],
+                pages: 3,
+                
 			}
 		};
 	},
 	componentDidMount: function() {
-		$.post(this.props.read, {
-			start: this.props.start||this.state.config.start,
-			count: this.props.count||this.state.config.count,
-			filters: this.state.filters||[]
-		}, function(data) {
-			this.setState({
-				data: data
-			});
-		}.bind(this));
+	   this.syncData(this.state.config);
 	},
     
     updateClick: function(row) {
@@ -67,18 +61,44 @@ var CRUDTableComponent = React.createClass({
             );
         });  
     },
-    
+                                           
+    renderPagesSelect: function() {
+        var pages = Array.apply(null, Array(this.state.data.pages)).map(function(_, i){
+            return (<option value={i+1} key={i}>{i+1}</option>)
+        });
+        return (<select className="form-control" ref="pageSelect" onChange={this.pageSelect}>{pages}</select>)
+    },
+            
+    pageSelect: function(e) {
+        var page = e.target.value-1;
+        var config = {
+            start: this.state.config.count * page,
+            count: this.state.config.count,
+            filters: this.state.config.filters||null
+        };
+        this.syncData(config);
+    },
+        
     addClick: function() {
         React.render(<CRUDCreateComponent fields={this.state.data.fields}/>,
         document.getElementById('modalViewport'));
+    },
+        
+    syncData: function(config) {
+        $.post(this.props.read, config, function(data) {
+			this.setState(data);
+		}.bind(this));
     },
     
 	render: function() {
 		return (
             <div>
                 <div className="row">
-                    <div className="col-md-12">
+                    <div className="col-md-1">
                         <button className="btn" onClick={this.addClick} data-toggle="modal" data-target="#myModal">Create</button>
+                    </div>
+                    <div className="col-md-1">
+                        Page: {this.renderPagesSelect()}
                     </div>
                 </div>
                 <div className="row">
