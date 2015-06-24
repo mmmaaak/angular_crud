@@ -29,7 +29,11 @@ var CRUDTableComponent = React.createClass({
     },
     
     deleteClick: function(row) {
-        console.log("Delete: ", row);
+        React.render(<CRUDDeleteComponent row={row} delete={this.deleteCallback}/>, document.getElementById('modalViewport'));
+    },
+                     
+    deleteCallback: function(row) {
+      console.log(row);      
     },
     
     renderTableHeaders: function(fields) {
@@ -57,7 +61,7 @@ var CRUDTableComponent = React.createClass({
                     {row_vals}
                     <td>
                         <button className="btn btn-warning" onClick={self.updateClick.bind(self, r_e)} data-toggle="modal" data-target="#myModal">Update</button>
-                        <button className="btn btn-danger" onClick={self.deleteClick.bind(self, r_e)}>Delete</button>
+                        <button className="btn btn-danger" onClick={self.deleteClick.bind(self, r_e)} data-toggle="modal" data-target="#myModal">Delete</button>
                     </td>
                 </tr>        
             );
