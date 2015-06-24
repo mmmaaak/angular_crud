@@ -29,7 +29,7 @@ var CRUDTableComponent = React.createClass({
     },
     
     deleteClick: function(row) {
-        React.render(<CRUDDeleteComponent row={row} delete={this.deleteCallback}/>, document.getElementById('modalViewport'));
+        React.render(<CRUDDeleteComponent row={row} callback={this.deleteCallback.bind(this, row)}/>, document.getElementById('modalViewport'));
     },
                      
     deleteCallback: function(row) {

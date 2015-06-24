@@ -2,21 +2,21 @@ var CRUDDeleteComponent = React.createClass({
     getInitialState: function() {
       return {
           row: [],
-          deleteCallback: null
+          callback: null
       };
     },
     
     componentWillReceiveProps: function(props) {
         this.setState({
             row: props.row,
-            deleteCallback: props.delete
+            callback: props.callback
         });
     },
     
     componentDidMount: function() {
         this.setState({
             row: this.props.row,
-            deleteCallback: this.props.delete
+            callback: this.props.callback
         });
     },
     
@@ -43,7 +43,7 @@ var CRUDDeleteComponent = React.createClass({
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.state.deleteCallback}>Delete</button>
+                    <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.state.callback}>Delete</button>
                 </div>
             </div>  
         );
