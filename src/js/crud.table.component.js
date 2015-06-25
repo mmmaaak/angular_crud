@@ -53,7 +53,7 @@ var CRUDTableComponent = React.createClass({
             return (
                 <tr key={r_i}>
                     {row_vals}
-                    <td>
+                    <td className="col-md-2">
                         <div className="btn-group">
                             <button className="btn btn-warning" onClick={self.updateClick.bind(self, r_e)} data-toggle="modal" data-target="#myModal">Update</button>
                             <button className="btn btn-danger" onClick={self.deleteClick.bind(self, r_e)} data-toggle="modal" data-target="#myModal">Delete</button>
@@ -155,7 +155,7 @@ var CRUDTableComponent = React.createClass({
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <table className="table table-bordered table-hover">
+                        <table className="table table-bordered table-hover table-condensed table-vmidle">
                             <thead>
                                 <tr>
                                     {this.renderTableHeaders(this.state.data.fields)}

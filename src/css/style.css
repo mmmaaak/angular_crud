@@ -2,3 +2,8 @@
     margin-top: 8px;
     margin-bottom: 10px;
 }
+
+.table.table-vmidle thead>tr>th,
+.table.table-vmidle tbody>tr>td {
+    vertical-align: middle;
+}
