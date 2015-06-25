@@ -4,7 +4,7 @@ var CRUDTableComponent = React.createClass({
 			config: {
 				start: 0,
 				count: 5,
-				filters: []
+				filters: {}
 			},
 			data: {
 				fields: [],
@@ -54,8 +54,10 @@ var CRUDTableComponent = React.createClass({
                 <tr key={r_i}>
                     {row_vals}
                     <td>
-                        <button className="btn btn-warning" onClick={self.updateClick.bind(self, r_e)} data-toggle="modal" data-target="#myModal">Update</button>
-                        <button className="btn btn-danger" onClick={self.deleteClick.bind(self, r_e)} data-toggle="modal" data-target="#myModal">Delete</button>
+                        <div className="btn-group">
+                            <button className="btn btn-warning" onClick={self.updateClick.bind(self, r_e)} data-toggle="modal" data-target="#myModal">Update</button>
+                            <button className="btn btn-danger" onClick={self.deleteClick.bind(self, r_e)} data-toggle="modal" data-target="#myModal">Delete</button>
+                        </div>
                     </td>
                 </tr>        
             );
@@ -93,7 +95,7 @@ var CRUDTableComponent = React.createClass({
         var config = {
             start: 0,
             count: e.target.value,
-            filters: this.state.config.filters
+            filters: this.state.config.filters||{}
         };
         this.syncData(config);
     },
@@ -104,7 +106,7 @@ var CRUDTableComponent = React.createClass({
         
     searchInput: function(e) {
         var filters = this.state.config.filters||{};
-        filters.search = e.target.value;
+        filters.searchString = e.target.value;
         var config = {
             start: this.state.config.start,
             count: this.state.config.count,
@@ -127,18 +129,28 @@ var CRUDTableComponent = React.createClass({
 	render: function() {
 		return (
             <div>
-                <div className="row">
+                <div className="row vertical-margin">
                     <div className="col-md-1">
-                        <button className="btn" onClick={this.addClick} data-toggle="modal" data-target="#myModal">Create</button>
-                    </div>
-                    <div className="col-md-1">
-                        Page: {this.renderPagesSelect()}
+                        <button className="btn btn-success" onClick={this.addClick} data-toggle="modal" data-target="#myModal">Create</button>
                     </div>
                     <div className="col-md-2">
-                        Count: {this.renderCountSelect()}
+                        <div className="input-group">
+                            <span className="input-group-addon" id="basic-addon1">Page</span>
+                            {this.renderPagesSelect()}
+                        </div>
                     </div>
                     <div className="col-md-2">
-                        Search: {this.renderSearchInput()}    
+                        <div className="input-group">
+                            <span className="input-group-addon" id="basic-addon1">Count</span>
+                            {this.renderCountSelect()}
+                        </div>
+                    </div>
+                    <div className="col-md-3">
+                        <div className="input-group">
+                            <span className="input-group-addon" id="basic-addon1">Search</span>
+                            {this.renderSearchInput()}        
+                        </div>
+                        
                     </div>
                 </div>
                 <div className="row">

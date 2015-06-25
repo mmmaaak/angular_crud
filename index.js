@@ -134,9 +134,9 @@ app.post('/api/read/', function (req, res) {
     var response = prepareResponse(req);
     var resultData = data.rows;
     if(typeof req.body['filters']!=="undefined") {
-        if(typeof req.body.filters["search"]!=="undefined" && req.body.filters.search.trim().length > 0) {
+        if(typeof req.body.filters["searchString"]!=="undefined" && req.body.filters.searchString.trim().length > 0) {
             resultData = resultData.filter(function(e) {
-                return e.name.toLowerCase().indexOf(req.body.filters.search.toLowerCase().trim()) > -1;
+                return e.name.toLowerCase().indexOf(req.body.filters.searchString.toLowerCase().trim()) > -1;
             });
         }
     }
