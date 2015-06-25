@@ -3,13 +3,13 @@ var CRUDTableComponent = React.createClass({
 		return {
 			config: {
 				start: 0,
-				count: 3,
+				count: 5,
 				filters: []
 			},
 			data: {
 				fields: [],
 				rows: [],
-                pages: 3,
+                pages: 0,
                 
 			}
 		};
@@ -66,7 +66,7 @@ var CRUDTableComponent = React.createClass({
         var pages = Array.apply(null, Array(this.state.data.pages)).map(function(_, i){
             return (<option value={i+1} key={i}>{i+1}</option>)
         });
-        return (<select className="form-control" ref="pageSelect" onChange={this.pageSelect}>{pages}</select>)
+        return (<select className="form-control" onChange={this.pageSelect}>{pages}</select>)
     },
             
     pageSelect: function(e) {
@@ -75,6 +75,40 @@ var CRUDTableComponent = React.createClass({
             start: this.state.config.count * page,
             count: this.state.config.count,
             filters: this.state.config.filters||null
+        };
+        this.syncData(config);
+    },
+        
+    renderCountSelect: function() {
+        return (
+            <select className="form-control" onChange={this.countSelect}>
+            {[5, 10, 20, 50, 100].map(function(e, i) {
+                return (<option key={i} value={e}>{e}</option>);
+            })}
+            </select>
+        );
+    },
+        
+    countSelect: function(e) {
+        var config = {
+            start: 0,
+            count: e.target.value,
+            filters: this.state.config.filters
+        };
+        this.syncData(config);
+    },
+        
+    renderSearchInput: function() {
+        return (<input type="text" className="form-control" onChange={this.searchInput} />);
+    },
+        
+    searchInput: function(e) {
+        var filters = this.state.config.filters||{};
+        filters.search = e.target.value;
+        var config = {
+            start: this.state.config.start,
+            count: this.state.config.count,
+            filters: filters
         };
         this.syncData(config);
     },
@@ -99,6 +133,12 @@ var CRUDTableComponent = React.createClass({
                     </div>
                     <div className="col-md-1">
                         Page: {this.renderPagesSelect()}
+                    </div>
+                    <div className="col-md-2">
+                        Count: {this.renderCountSelect()}
+                    </div>
+                    <div className="col-md-2">
+                        Search: {this.renderSearchInput()}    
                     </div>
                 </div>
                 <div className="row">

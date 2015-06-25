@@ -132,10 +132,18 @@ app.post('/api/create/', function (req, res) {
 
 app.post('/api/read/', function (req, res) {
     var response = prepareResponse(req);
+    var resultData = data.rows;
+    if(typeof req.body['filters']!=="undefined") {
+        if(typeof req.body.filters["search"]!=="undefined" && req.body.filters.search.trim().length > 0) {
+            resultData = resultData.filter(function(e) {
+                return e.name.toLowerCase().indexOf(req.body.filters.search.toLowerCase().trim()) > -1;
+            });
+        }
+    }
     response.data = {
         fields: data.fields,
-        rows: data.rows.slice(parseInt(response.config.start), parseInt(response.config.start) + parseInt(response.config.count)),
-        pages: Math.ceil(data.rows.length/response.config.count)
+        rows: resultData.slice(parseInt(response.config.start), parseInt(response.config.start) + parseInt(response.config.count)),
+        pages: Math.ceil(resultData.length/response.config.count)
     };
     res.send(response);
 });
