@@ -17,9 +17,26 @@ var CRUDTableComponent = React.createClass({
 	componentDidMount: function() {
 	   this.syncData(this.state.config);
 	},
+
+    notifyError: function(error) {
+        notif({
+            msg: error,
+            type: "error",
+            position: "center"
+        });
+    },
     
     updateClick: function(row) {
-        React.render(<CRUDUpdateComponent row={row} fields={this.state.data.fields}/>, document.getElementById('modalViewport'));
+        React.render(<CRUDUpdateComponent row={row} fields={this.state.data.fields} callback={this.updateCallback}/>, document.getElementById('modalViewport'));
+    },
+
+    updateCallback: function(request) {
+        console.log(this);
+        $.post(this.props.update, request, function(data) {
+            if(typeof data["error"]!=="undefined")
+                return this.notifyError(data.error);
+            this.syncData(this.state.config);
+        }.bind(this));
     },
     
     deleteClick: function(row) {
@@ -27,7 +44,11 @@ var CRUDTableComponent = React.createClass({
     },
                      
     deleteCallback: function(row) {
-      console.log(row);      
+        $.post(this.props.delete, row, function(data) {
+            if(typeof data['error']!=="undefined")
+                return this.notifyError(data.error);
+            this.syncData(this.state.config);
+        }.bind(this));
     },
     
     renderTableHeaders: function(fields) {
@@ -115,13 +136,23 @@ var CRUDTableComponent = React.createClass({
         this.syncData(config);
     },
         
-    addClick: function() {
-        React.render(<CRUDCreateComponent fields={this.state.data.fields}/>,
+    createClick: function() {
+        React.render(<CRUDCreateComponent fields={this.state.data.fields} callback={this.createCallback.bind(this)}/>,
         document.getElementById('modalViewport'));
+    },
+
+    createCallback: function(request) {
+        $.post(this.props.create, request, function(data) {
+            if(typeof data["error"]!=="undefined")
+                return this.notifyError(data.error);
+            this.syncData(this.state.config);
+        }.bind(this));
     },
         
     syncData: function(config) {
         $.post(this.props.read, config, function(data) {
+            if(typeof data["error"]!=="undefined")
+                return this.notifyError(data.error);
 			this.setState(data);
 		}.bind(this));
     },
@@ -131,7 +162,7 @@ var CRUDTableComponent = React.createClass({
             <div>
                 <div className="row vertical-margin">
                     <div className="col-md-1">
-                        <button className="btn btn-success" onClick={this.addClick} data-toggle="modal" data-target="#myModal">Create</button>
+                        <button className="btn btn-success" onClick={this.createClick} data-toggle="modal" data-target="#myModal">Create</button>
                     </div>
                     <div className="col-md-2">
                         <div className="input-group">

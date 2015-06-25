@@ -2,17 +2,20 @@ var CRUDCreateComponent = React.createClass({
     // Default state init
 	getInitialState: function() {
 		return {
-			fields: []
+			fields: [],
+            callback: null
 		}
 	},
 	componentWillReceiveProps: function(props) {
 		this.setState({
-			fields: props.fields
+			fields: props.fields,
+            callback: props.callback
 		});
 	},
 	componentDidMount: function() {
 		this.setState({
-			fields: this.props.fields
+			fields: this.props.fields,
+            callback: this.props.callback
 		});
 	},
     
@@ -59,6 +62,10 @@ var CRUDCreateComponent = React.createClass({
         );
     },
 
+    createSubmit: function() {
+        this.state.callback($(this.refs.form.getDOMNode()).serializeArray());
+    },
+
 	render: function() {
 		return (
             <div className="modal-content">
@@ -78,7 +85,7 @@ var CRUDCreateComponent = React.createClass({
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary" onClick={this.createSubmit}>Save changes</button>
+                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.createSubmit}>Save changes</button>
                 </div>
             </div>
 		);

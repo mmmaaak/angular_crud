@@ -127,7 +127,7 @@ app.get('/', function (req, res) {
 });
 
 app.post('/api/create/', function (req, res) {
-    res.send(data);
+    res.send({error: 'Test create message!'});
 });
 
 app.post('/api/read/', function (req, res) {
@@ -149,11 +149,11 @@ app.post('/api/read/', function (req, res) {
 });
 
 app.post('/api/update/', function (req, res) {
-    res.send(data);
+    res.send({error: 'Test update message!'});
 });
 
 app.post('/api/delete/', function (req, res) {
-    res.send(data);
+    res.send({error: 'Test delete message!'});
 });
 
 var server = app.listen(3000, function () {
