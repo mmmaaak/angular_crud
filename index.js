@@ -5,6 +5,7 @@ var express = require('express'),
 app.set('view engine', 'ejs');
 app.set('views', './views/');
 app.use('/src', express.static(__dirname + '/src'));
+app.use('/dist', express.static(__dirname + '/dist'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
