@@ -149,6 +149,37 @@ var CRUDTableComponent = React.createClass({
         }.bind(this));
     },
         
+    renderOrderSelect: function() {
+        var options = this.state.data.fields.map(function(e, i) {
+           return (<option value={e.title} key={i}>{e.title}</option>);
+        });
+        
+        return (
+            <select ref="orderField" className="form-control" onChange={this.orderCallback}>{options}</select>
+        )  
+    },
+            
+    renderOrdeDirectionSelect: function() {
+        return (
+            <select className="form-control" ref="orderDir" onChange={this.orderCallback}>
+                <option value="asc" sleected="selected">ASC</option>
+                <option value="desc">DESC</option>
+            </select>
+        );
+    },
+        
+    orderCallback: function() {
+        var filters = this.state.filters;
+        filters.odreBy = this.refs.orderField.getDOMnode().value;
+        filters.orderDirection = this.refs.orderField.getDOMNode().value;
+        var config = {
+            start: this.state.config.start,
+            count: this.state.config.count,
+            filters: filters
+        };
+        this.syncData(config);
+    },
+        
     syncData: function(config) {
         $.post(this.props.read, config, function(data) {
             if(typeof data["error"]!=="undefined")
@@ -174,6 +205,18 @@ var CRUDTableComponent = React.createClass({
                         <div className="input-group">
                             <span className="input-group-addon" id="basic-addon1">Count</span>
                             {this.renderCountSelect()}
+                        </div>
+                    </div>
+                    <div className="col-md-2">
+                        <div className="input-group">
+                            <span className="input-group-addon" id="basic-addon1">Order</span>
+                            {this.renderOrderSelect()}
+                        </div>
+                    </div>
+                    <div className="col-md-2">
+                        <div className="input-group">
+                            <span className="input-group-addon" id="basic-addon1">Direction</span>
+                            {this.renderOrdeDirectionSelect()}
                         </div>
                     </div>
                     <div className="col-md-3">
