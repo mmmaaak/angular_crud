@@ -9,106 +9,219 @@ app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+//
+//var data = {
+//    fields: [
+//        {
+//            title: 'id',
+//            valueType: 'pkey'
+//    },
+//    {
+//            title: 'name',
+//            valueType: 'string'
+//    },
+//    {
+//            title: 'age',
+//            valueType: 'number'
+//    },
+//    {
+//            title: 'gender',
+//            valueType: 'select',
+//            options: ['male', 'female']
+//    }
+//  ],
+//    rows: [
+//    {
+//        id: 1,
+//        name: 'Pavel Shvedov',
+//        age: 26,
+//        gender: 'male'
+//    },
+//    {
+//        id: 2,
+//        name: 'Furion',
+//        age: 1000,
+//        gender: 'female'
+//    },
+//    {
+//        id: 3,
+//        name: 'John Fail',
+//        age: 32,
+//        gender: 'female'
+//    },
+//    {
+//        id: 4,
+//        name: 'Jack London',
+//        age: 100,
+//        gender: 'male'
+//    },
+//    {
+//        id: 5,
+//        name: 'Jack London',
+//        age: 100,
+//        gender: 'male'
+//    },
+//    {
+//        id: 6,
+//        name: 'Jack London',
+//        age: 100,
+//        gender: 'male'
+//    },
+//    {
+//        id: 7,
+//        name: 'Jack London',
+//        age: 100,
+//        gender: 'male'
+//    },
+//    {
+//        id: 8,
+//        name: 'Jack London',
+//        age: 100,
+//        gender: 'male'
+//    },
+//    {
+//        id: 9,
+//        name: 'Jack London',
+//        age: 100,
+//        gender: 'male'
+//    },
+//    {
+//        id: 10,
+//        name: 'Jack London',
+//        age: 100,
+//        gender: 'male'
+//    },
+//    {
+//        id: 11,
+//        name: 'Jack London',
+//        age: 100,
+//        gender: 'male'
+//    },
+//    {
+//        id: 12,
+//        name: 'Jack London',
+//        age: 100,
+//        gender: 'male'
+//    },
+//    {
+//        id: 13,
+//        name: 'Jack London',
+//        age: 100,
+//        gender: 'male'
+//    }
+//  ]
+//};
 
 var data = {
-    fields: [
-        {
-            title: 'id',
-            valueType: 'pkey'
-    },
-        {
-            title: 'name',
-            valueType: 'string'
-    },
-        {
-            title: 'age',
-            valueType: 'number'
-    },
-        {
-            title: 'gender',
-            valueType: 'select',
-            options: ['male', 'female']
-    }
+  fields: [
+      {
+          title: "city_id",
+          valueType: "pkey"
+      },
+      {
+          title: "name",
+          valueType: "string"
+      },
+      {
+          title: "country",
+          valueType: "string"
+      },
+      {
+          title: "population",
+          valueType: "number"
+      }
   ],
-    rows: [
-    {
-        id: 1,
-        name: 'Pavel Shvedov',
-        age: 26,
-        gender: 'male'
-    },
-    {
-        id: 2,
-        name: 'Furion',
-        age: 1000,
-        gender: 'female'
-    },
-    {
-        id: 3,
-        name: 'John Fail',
-        age: 32,
-        gender: 'female'
-    },
-    {
-        id: 4,
-        name: 'Jack London',
-        age: 100,
-        gender: 'male'
-    },
-    {
-        id: 5,
-        name: 'Jack London',
-        age: 100,
-        gender: 'male'
-    },
-    {
-        id: 6,
-        name: 'Jack London',
-        age: 100,
-        gender: 'male'
-    },
-    {
-        id: 7,
-        name: 'Jack London',
-        age: 100,
-        gender: 'male'
-    },
-    {
-        id: 8,
-        name: 'Jack London',
-        age: 100,
-        gender: 'male'
-    },
-    {
-        id: 9,
-        name: 'Jack London',
-        age: 100,
-        gender: 'male'
-    },
-    {
-        id: 10,
-        name: 'Jack London',
-        age: 100,
-        gender: 'male'
-    },
-    {
-        id: 11,
-        name: 'Jack London',
-        age: 100,
-        gender: 'male'
-    },
-    {
-        id: 12,
-        name: 'Jack London',
-        age: 100,
-        gender: 'male'
-    },
-    {
-        id: 13,
-        name: 'Jack London',
-        age: 100,
-        gender: 'male'
-    }
+  rows: [
+      {
+          city_id: 1,
+          name: "New York",
+          country: "USA",
+          population: 100500
+      },
+      {
+          city_id: 2,
+          name: "Moscow",
+          country: "Russia",
+          population: 200600
+      },
+      {
+          city_id: 3,
+          name: "Paris",
+          country: "France",
+          population: 300700
+      },
+      {
+          city_id: 4,
+          name: "Berlin",
+          country: "Germany",
+          population: 400800
+      },
+      {
+          city_id: 5,
+          name: "Rome",
+          country: "Italy",
+          population: 500900
+      },
+      {
+          city_id: 6,
+          name: "New York",
+          country: "USA",
+          population: 100500
+      },
+      {
+          city_id: 7,
+          name: "Moscow",
+          country: "Russia",
+          population: 200600
+      },
+      {
+          city_id: 8,
+          name: "Paris",
+          country: "France",
+          population: 300700
+      },
+      {
+          city_id: 9,
+          name: "Berlin",
+          country: "Germany",
+          population: 400800
+      },
+      {
+          city_id: 10,
+          name: "Rome",
+          country: "Italy",
+          population: 500900
+      },
+      {
+          city_id: 11,
+          name: "New York",
+          country: "USA",
+          population: 100500
+      },
+      {
+          city_id: 12,
+          name: "Moscow",
+          country: "Russia",
+          population: 200600
+      },
+      {
+          city_id: 13,
+          name: "Paris",
+          country: "France",
+          population: 300700
+      },
+      {
+          city_id: 14,
+          name: "Berlin",
+          country: "Germany",
+          population: 400800
+      },
+      {
+          city_id: 15,
+          name: "Rome",
+          country: "Italy",
+          population: 500900
+      }
   ]
 };
 

@@ -169,9 +169,9 @@ var CRUDTableComponent = React.createClass({
     },
         
     orderCallback: function() {
-        var filters = this.state.filters;
-        filters.odreBy = this.refs.orderField.getDOMnode().value;
-        filters.orderDirection = this.refs.orderField.getDOMNode().value;
+        var filters = this.state.filters||{};
+        filters.orderBy = this.refs.orderField.getDOMNode().value;
+        filters.orderDirection = this.refs.orderDir.getDOMNode().value;
         var config = {
             start: this.state.config.start,
             count: this.state.config.count,
