@@ -212,9 +212,14 @@ var CRUDTableComponent = React.createClass({
     },
     
 	render: function() {
+        var verticalMarginStyle = {
+            marginTop: 8,
+            marginBottom: 10
+        };
+
 		return (
             <div>
-                <div className="row vertical-margin">
+                <div className="row" style={verticalMarginStyle}>
                     <div className="col-md-1">
                         <button className="btn btn-success" onClick={this.createClick} data-toggle="modal" data-target="#myModal">Create</button>
                     </div>
@@ -252,7 +257,7 @@ var CRUDTableComponent = React.createClass({
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <table className="table table-bordered table-hover table-condensed table-vmidle">
+                        <table className="table table-bordered table-hover table-condensed">
                             <thead>
                                 <tr>
                                     {this.renderTableHeaders(this.state.data.fields)}
