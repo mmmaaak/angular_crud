@@ -19,11 +19,34 @@ var CRUDTableComponent = React.createClass({
 	},
 
     notifyError: function(error) {
-        notif({
-            msg: error,
-            type: "error",
-            position: "center"
+        var alert = $('<div id="error-alert" class="alert alert-danger alert-dismissible alert-custom" role="alert">' + 
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+            error +
+        '</div>');
+        alert.css({
+            display: 'none',
+            position: 'fixed',
+            width: 320,
+            height: 50,
+            top: 30,
+            left: $(window).width()/2 - 160,
+            zIndex: 1000
         });
+        $('body').append(alert);
+        alert.slideDown();
+        setTimeout(function() {
+            alert.slideUp({
+                complete: function() {
+                    alert.remove();
+                }
+            });
+        }, 5000);
+//        notif({
+//            msg: error,
+//            type: "error",
+//            position: "center"
+//        });
+        
     },
     
     updateClick: function(row) {

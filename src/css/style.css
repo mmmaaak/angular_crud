@@ -7,7 +7,3 @@
 .table.table-vmidle tbody>tr>td {
     vertical-align: middle;
 }
-
-#ui_notifIt.error {
-	background-color: #d9534f;
-}
