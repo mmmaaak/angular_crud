@@ -202,6 +202,16 @@ var CRUDTableComponent = React.createClass({
         };
         this.syncData(config);
     },
+      
+    renderEmpty: function() {
+        return (
+            <tr>
+                <td colSpan={this.state.data.fields.length + 1}>
+                    Empty data
+                </td>
+            </tr>
+        );
+    },
         
     syncData: function(config) {
         $.post(this.props.read, config, function(data) {
@@ -264,7 +274,7 @@ var CRUDTableComponent = React.createClass({
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.renderTableRows(this.state.data.fields, this.state.data.rows)}
+                                {this.state.data.rows.length > 0?this.renderTableRows(this.state.data.fields, this.state.data.rows):this.renderEmpty()}
                             </tbody>
                         </table>
                     </div>
